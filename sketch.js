@@ -3,26 +3,24 @@
 const CARHEIGHT = 10;
 const CARWIDTH = 20;
 const SPACING = 50;
-const MASS = 10;
-const VMAX = 2;
-const VMAXXX = VMAX * 10;
+const MASS = 1;
+const VMAX = 3;
+const VMAXXX = VMAX * 3;
 const DENSITY = 1;
-const DISTMIN = 30;
+const DISTMIN = 20;
 const NUMCARS = 5;
+const ROADLENGTH = 1000;
 
-let boids = [];
 let cars = [];
-
+let lastCar;
 
 function setup() 
 {
-	createCanvas(700, 400);
-	
-	for (let i = NUMCARS-1; i >= 0; i--) 
-	{
-		cars[i] = new Car(i, i*(CARWIDTH + SPACING), CARWIDTH);
-	}
+	createCanvas(ROADLENGTH, 400);
 
+	let car = new Car(undefined, 0, CARWIDTH);
+	car.run();
+	lastCar = car;
 
 }
 
@@ -30,18 +28,17 @@ function draw()
 {
 	background(255);
 	stroke(0);
-	line(0, 200, 720, 200);
-	
-	for (let i = 0; i < cars.length; i++) 
+	line(0, 200, ROADLENGTH, 200);
+	lastCar.run()
+
+	if (lastCar.pos.x > DISTMIN + CARWIDTH)
 	{
-		cars[i].run(cars);
-	}	
+		let car = new Car(lastCar, 0, CARWIDTH);
+		lastCar = car;
+	}
 }
 
 function mousePressed()
 {
-	for (let i = 0; i < cars.length; i++) 
-	{
-		cars[i].clicked();
-	}	
+	lastCar.clicked();
 }

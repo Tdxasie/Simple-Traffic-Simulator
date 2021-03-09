@@ -1,6 +1,6 @@
 class Car 
 {
-	constructor(_i, x, _mass) 
+	constructor(_nextCar, x, _mass) 
 	{
 		this.acc = createVector(0, 0);
 		this.vel = createVector(3, 0);
@@ -8,54 +8,39 @@ class Car
 		this.color = color(0);
 		this.mass = _mass;
 		this.dist = 0;
-		this.id = _i;
+		this.nextCar = _nextCar;
 		this.isSelected = false;
-		this.next = (this.id + 1 > cars.length ? 0 : this.id);
+		this.isFirst = false;
+
+		if (!_nextCar) {
+			this.isFirst = true
+		}
 	}
 	
-	run(cars) 
+	run() 
 	{
-		this.drive(cars);
+		this.drive();
 		this.control();
 		this.update();
-		this.edgeCheck(cars);
+		this.edgeCheck();
 		this.render();
+		if(!this.isFirst) this.nextCar.run()
 	}
 	
-	drive(cars) 
+	drive() 
 	{
-		for(let i = 0; i < cars.length; i++)
+		if (this.isFirst)
 		{
-			if (cars[i] === this) // find yourself
-			{
-				if (i != cars.length-1) //every car exept last one
-				{
-					// let sign = (this.pos.x - cars[i+1].pos.x < 0 ? 1 : -1);
-
-					this.dist = p5.Vector.dist(this.pos, cars[i+1].pos);
-
-					let v = this.mass/(this.dist - DISTMIN);
-
-					this.vel.set(1/v);
-				}
-				else if (i === cars.length-1) //last car in the array aka leader
-				{
-					this.color = color(255, 0, 0);
-					this.vel.set(VMAX);
-				}
-			}
+			this.vel.set(VMAX);
 		}
+		else 
+		{
+			this.dist = p5.Vector.dist(this.pos, this.nextCar.pos);
 
-		// let idx = (this.id + 1 > cars.length ? 0 : this.id); // loop indexes in array 
-		// this.dist = p5.Vector.dist(this.pos, cars[idx].pos);
+			let v = this.mass/(this.dist - DISTMIN);
 
-		// let v = this.mass/this.dist;
-		// this.vel.set(v);
-
-		// if (this.id === cars.length - 1){
-		// 	this.color = color(255, 0, 0);
-		// 	//this.vel.set(VMAX);
-		// }
+			this.vel.set(1/v);
+		}
 
 	}
 	
@@ -90,7 +75,8 @@ class Car
 	
 	edgeCheck()
 	{
-		if(this.pos.x > width) this.pos.x = 0;
+		
+		if(!this.isFirst) if (this.pos.x > this.nextCar.pos.x) this.pos.x = this.nextCar.pos.x - CARWIDTH;
 	}
 	
 	render() 
@@ -98,7 +84,6 @@ class Car
 		stroke(0);
 		noFill();
 		text(round(this.dist), this.pos.x, this.pos.y - CARHEIGHT);
-		text(this.id, this.pos.x, this.pos.y + CARHEIGHT*2);
 		fill(this.color);
 		rect(this.pos.x, this.pos.y, CARWIDTH, CARHEIGHT);
 	}
@@ -113,5 +98,8 @@ class Car
 			this.color = color(0, 255, 0);
 			this.isSelected = true;
 		}
+
+		this.nextCar.clicked();
+
 	}
 }
