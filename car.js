@@ -19,6 +19,7 @@ class Car
 	
 	run() 
 	{
+		console.log(VMAX);
 		this.drive();
 		this.control();
 		this.update();
@@ -41,7 +42,6 @@ class Car
 
 			this.vel.set(1/v);
 		}
-
 	}
 	
 	control()
@@ -61,7 +61,6 @@ class Car
 				this.vel.set(0);
 			}
 		}
-		
 	}
 	
 	update()
@@ -75,8 +74,7 @@ class Car
 	
 	edgeCheck()
 	{
-		
-		if(!this.isFirst) if (this.pos.x > this.nextCar.pos.x) this.pos.x = this.nextCar.pos.x - CARWIDTH;
+		if(!this.isFirst && this.pos.x > this.nextCar.pos.x) this.pos.x = this.nextCar.pos.x - CARWIDTH;
 	}
 	
 	render() 
