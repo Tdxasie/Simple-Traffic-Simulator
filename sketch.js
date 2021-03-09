@@ -11,6 +11,7 @@ const DISTMIN = 20;
 const NUMCARS = 5;
 const ROADLENGTH = 1000;
 
+
 let cars = [];
 let lastCar;
 
