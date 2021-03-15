@@ -8,7 +8,7 @@ let VMAX = 3;
 const VMAXXX = VMAX * 3;
 const DISTMIN = 20;
 const ROADLENGTH = 1000;
-
+const ROADY = 400;
 
 let cars = [];
 let lastCar;
@@ -17,7 +17,8 @@ let vmaxSlider, massSlider;
 
 function setup() 
 {
-	createCanvas(ROADLENGTH, 400);
+	createCanvas(ROADLENGTH, ROADY);
+	rectMode(CENTER);
 
 	let vmaxText = createElement('div', 'VMAX');
 	vmaxText.position(0, 0);
@@ -34,7 +35,7 @@ function setup()
 	massSlider.style('width', '80px')
 
 
-	let car = new Car(undefined, 0, CARWIDTH);
+	let car = new Car(undefined, 0, CARWIDTH, cars);
 	car.run();
 	lastCar = car;
 
@@ -46,14 +47,14 @@ function draw()
 
 	background(255);
 	stroke(0);
-	line(0, 200, ROADLENGTH, 200);
+	line(0, ROADY - CARHEIGHT/2, ROADLENGTH, ROADY - CARHEIGHT/2);
 	lastCar.run()
 
 	if (lastCar.pos.x > DISTMIN + CARWIDTH)
 	{
-		let car = new Car(lastCar, 0, CARWIDTH);
-		lastCar = car;
+		lastCar = new Car(lastCar, 0, CARWIDTH, cars);
 	}
+	console.log(cars);
 }
 
 function mousePressed()
