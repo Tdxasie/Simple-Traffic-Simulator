@@ -24,6 +24,14 @@ Nous prenons ici l'exemple du trafic routier.
 
 J'ai donc choisi de faire des automates cellulaires pour représenter chaque voiture, ainsi une loi de comportement peut être donnée à chaque automate et un résultat analogue à une description eulérienne devrait émerger.
 
+### Le Modèle LWR
+
+Soit &rho; la densité de voitures, le modèle LWR est défini comme : 
+
+<p style="font-family: times, serif; font-size:13pt; font-style:italic">
+&part;<sub>t </sub>&rho;(t, x) + &part;<sub>x</sub>(&rho;v(&rho;)) = 0
+</p>
+
 
 
 
