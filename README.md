@@ -28,10 +28,11 @@ J'ai donc choisi de faire des automates cellulaires pour représenter chaque voi
 
 Soit &rho; la densité de voitures, le modèle LWR est défini comme : 
 
+
+*&part;<sub>t</sub>&rho;(t, x) + &part;<sub>x</sub>(&rho;v(&rho;)) = 0*
+
 <p style="font-family: times, serif; font-size:13pt; font-style:italic">
 &part;<sub>t </sub>&rho;(t, x) + &part;<sub>x</sub>(&rho;v(&rho;)) = 0
 </p>
-
-
 
 
