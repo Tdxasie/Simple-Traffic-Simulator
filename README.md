@@ -125,8 +125,29 @@ Voici une liste des méthodes principales de la classe :
 | Méthode | Arguments | Utilité |
 | ------- | --------- | ------- |
 | `constructor(_nextCar, x, _mass, _cars)` | `(Car)nextCar` : référence à la voiture précédente. `(int)x` : position initiale. `(int)mass : masse`. `(Car)[]`: tableau de référencement des voitures | Initialise toutes les propriétés |
-| `run()` | |Exécute une mise à jour de l'objet en éxécutant de manière séquentielle les méthodes `drive()`, `control()`, `update()`, `edgeCheck()`, `render()`. Propage également sa propre éxécution chez la voiture suivante. |
-| `drive()` |  | Contient la loi de commande de la voiture : calcul de la vitesse target puis gestion de l'accélération automatique |
+| `run()` | Aucun |Exécute une mise à jour de l'objet en éxécutant de manière séquentielle les méthodes `drive()`, `control()`, `update()`, `edgeCheck()`, `render()`. Propage également sa propre éxécution chez la voiture suivante. |
+| `drive()` |  Aucun | Contient la loi de commande de la voiture : calcul de la vitesse target puis gestion de l'accélération automatique. |
+| `control()`| Aucun | Gère l'input utilisateur sur l'accélération et le frein à main |
+| `update()` | Aucun | Effectue le calcul de la vitesse, gère le freinage brutal |
+| `edgeCheck()` | Aucun | Empêche les voiture de se dépasser et gère la supression de la voiture suivante lorsqu'on est en dehors de la zone de rendu de la simulation |
+| `render()` | Aucun | Rendu graphique de la voiture (dessin du rectangle, etc) |
+| `clicked()` | Aucun | Les voitures ne peuvent pas détecter les clicks, cette fonction est trigger par le scope global et chaque voiture propage son exécution à la suivante, permettant ainsi de détecter la voiture sur laquelle à eu le clic | `tellNextCar()` | Aucun | Permet à la voiture de s'identifier auprès de la voiture suivante |
+| `setPrevCar(car) | `(Car)car` une référence à l'objet voiture précédent | Enregistre la référence dans les propriétés |
+
+## Comportement "Autonome"
+
+Comme on peut le voir dans la boucle principale, seule une voiture est mise à jour et on ne s'occupe pas de remplir le tableau des voitures. J'ai programmé les voitures pour qu'elles propagent : 
+
+* la mise à jour 
+* la détection des clics
+
+Chaque voiture prend la responsabilité de suprimmer sa `nextCar` du tableau quand elle est hors de la zone de rendu depuis trop longtemps et assume automatiquement le rôle de leader jusqu'à ce que la voiture précédente fasse la même chose.
+
+Chaque voiture s'auto ajoute au début du tableau lors de la création et s'identifie auprès de sa `nextCar`.
+
+Les voitures ont donc accès à toutes les données nécessaires à des modèles plus raffinés.
+
+Le tableau de voiture contient donc toujours en moyenne le même nombre de voitures, ordonnées dans le même ordre qu'à l'affichage.
 # Améliorations
 
 Il manque une visualisation de la densité locale de voitures car c'est assez difficile de déceler les ralentissements qui se propagent à l'oeil nu.
