@@ -1,6 +1,6 @@
 # Simple Traffic Simulator
 
-Un prototype de simulation de traffic simple en [p5.js](https://p5js.org/) créée dans le cadre du cours de Calcul Scientifique en Application de Nicolas Seguin en M2 CSM à l'Université de Rennes 1.
+Une simulation de traffic simple en [p5.js](https://p5js.org/) créée dans le cadre du cours de Calcul Scientifique en Application de Nicolas Seguin en M2 CSM à l'Université de Rennes 1.
 
 ## Lancer la simulation
 
