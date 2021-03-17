@@ -8,7 +8,7 @@ class Car
 	constructor(_nextCar, x, _mass, _cars) 					// chaque voiture connait la voiture suivante et le tableau de voitures
 	{
 		this.acc = createVector(0, 0);
-		this.vel = createVector(3, 0);
+		this.vel = createVector(VMAX, 0);
 		this.pos = createVector(x, ROADY - CARHEIGHT);
 
 		this.color = color(0);
@@ -49,15 +49,28 @@ class Car
 	{
 		if (this.isLeader)
 		{
-			this.vel.set(VMAX);											// le leader conduit toujours à VMAX
+			this.targetVel = VMAX;										// le leader conduit toujours à VMAX
 		}
 		else 
 		{
 			this.dist = p5.Vector.dist(this.pos, this.nextCar.pos);		// calcul de la distance à la prochaine voiture
 
-			let v = this.mass/(this.dist - DISTMIN);					// calcul du paramètre de vitesse en comptant la distance de sécurité (DISTMIN)
+			let p = this.mass/(this.dist - DISTMIN);					// calcul du paramètre de vitesse en comptant la distance de sécurité (DISTMIN)
 
-			this.vel.set(1/v);											// la fonction de vitesse est une fonction inverse 
+			this.targetVel = 1/p;										// la fonction de vitesse est une fonction inverse 
+		}
+
+		if (this.vel.x > this.targetVel)								// si la vitesse est supérieure à la vitesse target
+		{
+			this.acc.set(-0.1);											// accélération
+		}
+		else if (this.vel.x < this.targetVel)							// si la vitesse est inférieure à vitesse target
+		{
+			this.acc.set(0.1);											// décélération
+		}
+		else
+		{
+			this.acc.set(0);											// vitesse constante
 		}
 	}
 	
@@ -67,24 +80,36 @@ class Car
 		{
 			if(keyIsDown(LEFT_ARROW))
 			{
-				this.acc.set(-VMAX);		// décélération
+				this.acc.set(-0.1);			// décélération
 			}
 			if(keyIsDown(RIGHT_ARROW))
 			{
-				this.acc.set(10);			// accelération
+				this.acc.set(0.1);			// accelération
 			}
 			if(keyIsDown(32)) 				// SPACEBAR
 			{
-				this.vel.set(0);			// frein a main
+				this.spacePressed = true;   // frein à main
+			}
+			else
+			{
+				this.spacePressed = false;
 			}
 		}
 	}
 	
 	update()								// mise à jour des vitesses et accélération
 	{
-		this.vel.add(this.acc);				// vi+1 = vi + acc 
-		this.vel.limit(VMAXXX);				// on limite la vitesse à VMAXXX
-		this.pos.add(this.vel);				// xi+1 = xi + vi+1
+		if (!this.spacePressed)
+		{
+			this.vel.add(this.acc);				// vt+1 = vt + acc 
+			this.vel.limit(this.targetVel);		// on limite la vitesse à la vitesse target
+			this.pos.add(this.vel);				// xt+1 = xt + vt+1
+		}
+		else
+		{
+			this.vel.mult(0);
+		}
+		
 
 		this.acc.mult(0); 					// remise à zéro de l'accélération pour chaque cycle
 	}
@@ -124,7 +149,8 @@ class Car
 		this.color = color(0);
 		this.isSelected = false;
 		var d = dist(mouseX, mouseY, this.pos.x, this.pos.y);	// calcul de la distance à la souris
-		if (d < CARWIDTH/2)										// si la souris est dans la zone de la voiture
+		let offset = 10;										// facilite le clic sur une voiture, possiblité de plusieurs voitures sélectionnés si > 0
+		if (d < CARWIDTH/2 + offset)							// si la souris est dans la zone de la voiture
 		{
 			this.color = color(0, 255, 0);						// on change la couleur 
 			this.isSelected = true;								// on se comporte comme voiture sélectionnée 
@@ -139,7 +165,7 @@ class Car
 		this.nextCar.setPrevCar(this);		// on passe cet objet à la voiture suivante
 	}
 
-	setPrevCar(car)				// permet de récupérer la voiture suivante et l'enregistrer dans les propriétés 
+	setPrevCar(car)							// permet de récupérer la voiture suivante et l'enregistrer dans les propriétés 
 	{
 		this.prevCar = car;
 	}
