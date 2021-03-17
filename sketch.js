@@ -10,9 +10,8 @@ const CARWIDTH = 20;
 const SPACING = 50;
 let MASS = 1;
 let VMAX = 3;
-const VMAXXX = VMAX * 3;
 const DISTMIN = 20;
-const ROADLENGTH = 1000;
+const ROADLENGTH = 1300;
 const ROADY = 400;
 
 let cars = [];													// tableau qui contiendra l'ensemble des voitures présentes sur l'écran
@@ -47,6 +46,8 @@ function setup() 												// fonction exécutée une seule fois au début du 
 
 function draw() 													// fonction exécutée de manière répétitive aussi rapidement que possible
 {
+	let STARTDIST = VMAX * DISTMIN;
+
 	updateParameters();												// mise à jour des paramètres avec les données des sliders
 
 	background(255);
@@ -55,7 +56,7 @@ function draw() 													// fonction exécutée de manière répétitive aus
 
 	lastCar.run();													// on update la dernière voiture créée 
 
-	if (lastCar.pos.x > DISTMIN + CARWIDTH)							// si cette voiture dépasse la distance de sécurité 
+	if (lastCar.pos.x > STARTDIST + CARWIDTH)							// si cette voiture dépasse la distance de sécurité 
 	{
 		lastCar = new Car(lastCar, 0, CARWIDTH, cars);				// on crée une nouvelle voiture en lui passant la dernière voiture et le tableau de voitures 
 	}
