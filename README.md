@@ -1,6 +1,6 @@
 # Simple Traffic Simulator
 
-Un prototype de simulation de traffic simple en [p5.js](https://p5js.org/) créée dans le cadre du cours de Calcul Scientifique en Application de Nicolas Seguin en M2 CSM à l'Université de Rennes 1.
+Une simulation de traffic simple en [p5.js](https://p5js.org/) créée dans le cadre du cours de Calcul Scientifique en Application de Nicolas Seguin en M2 CSM à l'Université de Rennes 1.
 
 ## Lancer la simulation
 
@@ -132,7 +132,7 @@ Voici une liste des méthodes principales de la classe :
 | `edgeCheck()` | Aucun | Empêche les voiture de se dépasser et gère la supression de la voiture suivante lorsqu'on est en dehors de la zone de rendu de la simulation |
 | `render()` | Aucun | Rendu graphique de la voiture (dessin du rectangle, etc) |
 | `clicked()` | Aucun | Les voitures ne peuvent pas détecter les clicks, cette fonction est trigger par le scope global et chaque voiture propage son exécution à la suivante, permettant ainsi de détecter la voiture sur laquelle à eu le clic | `tellNextCar()` | Aucun | Permet à la voiture de s'identifier auprès de la voiture suivante |
-| `setPrevCar(car) | `(Car)car` une référence à l'objet voiture précédent | Enregistre la référence dans les propriétés |
+| `setPrevCar(car)` | `(Car)car` une référence à l'objet voiture précédent | Enregistre la référence dans les propriétés |
 
 ## Comportement "Autonome"
 
