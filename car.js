@@ -99,7 +99,7 @@ class Car
 	
 	update()								// mise à jour des vitesses et accélération
 	{
-		if (!this.spacePressed)
+		if (!this.spacePressed)					// tant que le frein n'est pas activé, comportement normal
 		{
 			this.vel.add(this.acc);				// vt+1 = vt + acc 
 			this.vel.limit(this.targetVel);		// on limite la vitesse à la vitesse target
@@ -107,7 +107,7 @@ class Car
 		}
 		else
 		{
-			this.vel.mult(0);
+			this.vel.mult(0);					// le frein à main est activé, freinage brutal
 		}
 		
 
