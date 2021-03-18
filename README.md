@@ -6,7 +6,7 @@ Une simulation de traffic simple en [p5.js](https://p5js.org/) créée dans le c
 
 Pour tester le programme, télécharger le projet et ouvrir le fichier *index.html* avec un navigateur.
 
-Autrement, j'ai une version en ligne disponible [ici](https://csa-m2-csm.herokuapp.com/).
+Autrement, j'ai une version en ligne disponible [ici](https://csa-m2-csm.herokuapp.com/) (peut prendre un peu de temps a charger le temps que le serveur se lance).
 
 ## Commandes 
 
