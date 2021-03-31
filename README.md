@@ -84,7 +84,7 @@ Une version de cette approche peut être trouvée [ici](https://github.com/Tdxas
 
 Ces problèmes sont tout à fait réglables mais j'ai eu une idée qui me plaisait beaucoup mieux : __simuler un trafic infini sur une portion de route avec un flux constant de nouvelles voitures arrivant à gauche__. Ainsi les voitures peuvent simplement être suprimmées quand elles sortent de la portion de route. Le tableau qui indexe les voitures est donc une liste de type FIFO (First In First Out).
 
-De plus j'ai donné plus d'autonomie aux voitures en leur déléguant la tache de s'indexer et se suprimmer du tableau. Ainsi la boucle principale ne fait que créer des nouvelles voitures quand l'interval avec la dernière voiture créée est cohérent avec la vitesse et la distance de sécurité.
+De plus j'ai donné plus d'autonomie aux voitures en leur déléguant la tache de s'indexer et se suprimmer du tableau. Ainsi la boucle principale ne fait que créer des nouvelles voitures quand l'intervalle avec la dernière voiture créée est cohérent avec la vitesse et la distance de sécurité.
 
 ## Accélération
 
